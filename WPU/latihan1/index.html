@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        function Header({author}){
+            return (<h1>Belajar React Bareng {author ? author : 'WPU'} 🚀</h1>);
+        }
+        function Body(){
+            const students = ['Sandhika', 'Doddy', 'Erik'];
+            return(
+                <ul>
+                    {
+                        students.map((student) => (
+                            <li key={student}>{student}</li>
+                        ))
+                    }
+                </ul>
+            )
+        }
+        function Display({likes}){
+            return(<span>{(likes > 9 || likes < 0)? 'Done' : likes}</span>);
+        }
+        function Button({action, onClick, counter}){
+            const disabled = (action !== 'Reset!') ? ((counter > 9 || counter < 0) ? true : false) : ((counter > 9 || counter < 0) ? false : true);
+            const myStyle = (action !== 'Reset!') ? {} : {margin: 20, display: 'block'};
+            return(<button onClick={onClick} disabled={disabled} style={myStyle}>{action}</button>);
+        }
+        function HomePage(){
+            const [likes, setLikes] = React.useState(0);
+            function handleKurangClick(){
+                setLikes(likes - 1);
+            }
+            function handleTambahClick(){
+                setLikes(likes + 1);
+            }
+            function handleResetClick(){
+                setLikes(0);
+            }
+            return(<>
+                <Header />
+                <Header author='Pak Dhika'/>
+                <Body />
+                <Button action='Kurang' onClick={handleKurangClick} counter={likes}/>
+                <Display likes={likes} />
+                <Button action='Tambah' onClick={handleTambahClick} counter={likes}/>
+                <Button action='Reset!' onClick={handleResetClick} counter={likes}/>
+            </>);
+        }
+        root.render(<HomePage />);
+    </script>
+</body>
+</html>
