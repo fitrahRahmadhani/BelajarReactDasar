@@ -3,12 +3,12 @@ import React from "react";
 import ContactItem from "./ContactItem";
 import PropTypes from "prop-types";
 
-function ContactList({ contact }){
+function ContactList({ contacts, onDelete }){
     return(
         <div className="contact-list">
             {
-                contact.map((contact) => (
-                    <ContactItem key={contact.id} {...contact} />
+                contacts.map((contact) => (
+                    <ContactItem key={contact.id} id={contact.id} onDelete={onDelete} {...contact} />
                 ))
             }
         </div>
@@ -16,7 +16,8 @@ function ContactList({ contact }){
 }
 
 ContactList.propTypes = {
-    contact: PropTypes.string.isRequired
+    contacts: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
 
 export default ContactList;
